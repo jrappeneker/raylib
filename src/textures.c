@@ -281,6 +281,33 @@ Image LoadImage(const char *fileName)
     return image;
 }
 
+// Load image from memory into CPU memory (RAM)
+Image LoadImageBuffer(stbi_uc const *buffer, int len)
+{
+    Image image = { 0 };
+
+    int imgWidth = 0;
+    int imgHeight = 0;
+    int imgBpp = 0;
+
+    // NOTE: Using stb_image to load images (Supports multiple image formats)
+    image.data = stbi_load_from_memory(buffer, len, &imgWidth, &imgHeight, &imgBpp, 0);
+
+    image.width = imgWidth;
+    image.height = imgHeight;
+    image.mipmaps = 1;
+
+    if (imgBpp == 1) image.format = UNCOMPRESSED_GRAYSCALE;
+    else if (imgBpp == 2) image.format = UNCOMPRESSED_GRAY_ALPHA;
+    else if (imgBpp == 3) image.format = UNCOMPRESSED_R8G8B8;
+    else if (imgBpp == 4) image.format = UNCOMPRESSED_R8G8B8A8;
+
+    if (image.data != NULL) TraceLog(LOG_INFO, "Image loaded successfully (%ix%i)", image.width, image.height);
+    else TraceLog(LOG_WARNING, "Image could not be loaded");
+
+    return image;
+}
+
 // Load image from Color array data (RGBA - 32bit)
 // NOTE: Creates a copy of pixels data array
 Image LoadImageEx(Color *pixels, int width, int height)
