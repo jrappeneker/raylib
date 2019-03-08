@@ -2603,6 +2603,60 @@ void DrawTexturePro(Texture2D texture, Rectangle sourceRec, Rectangle destRec, V
     }
 }
 
+// Draw a Texture2D Flipped
+void DrawTextureFlipped(Texture2D texture, int posX, int posY, Color tint)
+{
+    Rectangle sourceRec = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
+    Rectangle destRec = { posX, posY, (float)texture.width, (float)texture.height };
+    Vector2 origin = { 0.0f, 0.0f };
+
+    DrawTextureProFlipped(texture, sourceRec, destRec, origin, 0.0, tint);
+}
+
+void DrawTextureProFlipped(Texture2D texture, Rectangle sourceRec, Rectangle destRec, Vector2 origin, float rotation, Color tint)
+{
+    // Check if texture is valid
+    if (texture.id > 0)
+    {
+        float width = (float)texture.width;
+        float height = (float)texture.height;
+
+        if (sourceRec.width < 0) sourceRec.x -= sourceRec.width;
+        if (sourceRec.height < 0) sourceRec.y -= sourceRec.height;
+
+        rlEnableTexture(texture.id);
+
+        rlPushMatrix();
+            rlTranslatef(destRec.x, destRec.y, 0.0f);
+            rlRotatef(rotation, 0.0f, 0.0f, 1.0f);
+            rlTranslatef(-origin.x, -origin.y, 0.0f);
+
+            rlBegin(RL_QUADS);
+                rlColor4ub(tint.r, tint.g, tint.b, tint.a);
+                rlNormal3f(0.0f, 0.0f, 1.0f);                          // Normal vector pointing towards viewer
+
+
+                // Bottom-left corner for texture and quad
+                rlTexCoord2f(1,0);
+                rlVertex2f(0.0f, 0.0f);
+
+                // Bottom-right corner for texture and quad
+                rlTexCoord2f(1,1);
+                rlVertex2f(0.0f, destRec.height);
+
+                // Top-right corner for texture and quad
+                rlTexCoord2f(0,1);
+                rlVertex2f(destRec.width, destRec.height);
+
+                // Top-left corner for texture and quad
+                rlTexCoord2f(0,0);
+                rlVertex2f(destRec.width, 0.0f);
+            rlEnd();
+        rlPopMatrix();
+
+        rlDisableTexture();
+    }
+}
 // Draws a texture (or part of it) that stretches or shrinks nicely using n-patch info
 void DrawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle destRec, Vector2 origin, float rotation, Color tint)
 {
