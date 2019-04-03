@@ -275,7 +275,7 @@ typedef struct Camera3D {
     int type;               // Camera type, defines projection type: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC
 } Camera3D;
 
-#define Camera Camera3D     // Camera type fallback, defaults to Camera3D
+//#define Camera Camera3D     // Camera type fallback, defaults to Camera3D
 
 // Camera2D type, defines a 2d camera
 typedef struct Camera2D {
@@ -916,9 +916,9 @@ RLAPI void BeginTextureMode(RenderTexture2D target);              // Initializes
 RLAPI void EndTextureMode(void);                                  // Ends drawing to render texture
 
 // Screen-space-related functions
-RLAPI Ray GetMouseRay(Vector2 mousePosition, Camera camera);      // Returns a ray trace from mouse position
-RLAPI Vector2 GetWorldToScreen(Vector3 position, Camera camera);  // Returns the screen space position for a 3d world space position
-RLAPI Matrix GetCameraMatrix(Camera camera);                      // Returns camera transform matrix (view matrix)
+RLAPI Ray GetMouseRay(Vector2 mousePosition, Camera3D camera);      // Returns a ray trace from mouse position
+RLAPI Vector2 GetWorldToScreen(Vector3 position, Camera3D camera);  // Returns the screen space position for a 3d world space position
+RLAPI Matrix GetCameraMatrix(Camera3D camera);                      // Returns camera transform matrix (view matrix)
 
 // timing-related functions
 RLAPI void SetTargetFPS(int fps);                                 // Set target FPS (maximum)
@@ -1023,8 +1023,8 @@ RLAPI float GetGesturePinchAngle(void);                       // Get gesture pin
 //------------------------------------------------------------------------------------
 // Camera System Functions (Module: camera)
 //------------------------------------------------------------------------------------
-RLAPI void SetCameraMode(Camera camera, int mode);                // Set camera mode (multiple camera modes available)
-RLAPI void UpdateCamera(Camera *camera);                          // Update camera position for selected mode
+RLAPI void SetCameraMode(Camera3D camera, int mode);                // Set camera mode (multiple camera modes available)
+RLAPI void UpdateCamera(Camera3D *camera);                          // Update camera position for selected mode
 
 RLAPI void SetCameraPanControl(int panKey);                       // Set camera pan key to combine with mouse movement (free camera)
 RLAPI void SetCameraAltControl(int altKey);                       // Set camera alt key to combine with mouse movement (free camera)
@@ -1264,8 +1264,8 @@ RLAPI void DrawModelEx(Model model, Vector3 position, Vector3 rotationAxis, floa
 RLAPI void DrawModelWires(Model model, Vector3 position, float scale, Color tint);                      // Draw a model wires (with texture if set)
 RLAPI void DrawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint); // Draw a model wires (with texture if set) with extended parameters
 RLAPI void DrawBoundingBox(BoundingBox box, Color color);                                               // Draw bounding box (wires)
-RLAPI void DrawBillboard(Camera camera, Texture2D texture, Vector3 center, float size, Color tint);     // Draw a billboard texture
-RLAPI void DrawBillboardRec(Camera camera, Texture2D texture, Rectangle sourceRec, Vector3 center, float size, Color tint); // Draw a billboard texture defined by sourceRec
+RLAPI void DrawBillboard(Camera3D camera, Texture2D texture, Vector3 center, float size, Color tint);     // Draw a billboard texture
+RLAPI void DrawBillboardRec(Camera3D camera, Texture2D texture, Rectangle sourceRec, Vector3 center, float size, Color tint); // Draw a billboard texture defined by sourceRec
 
 // Collision detection functions
 RLAPI bool CheckCollisionSpheres(Vector3 centerA, float radiusA, Vector3 centerB, float radiusB);       // Detect collision between two spheres
@@ -1319,7 +1319,7 @@ RLAPI void EndScissorMode(void);                                          // End
 // VR control functions
 RLAPI VrDeviceInfo GetVrDeviceInfo(int vrDeviceType);   // Get VR device information for some standard devices
 RLAPI void InitVrSimulator(VrDeviceInfo info);          // Init VR simulator for selected device parameters
-RLAPI void UpdateVrTracking(Camera *camera);            // Update VR tracking (position and orientation) and camera
+RLAPI void UpdateVrTracking(Camera3D *camera);            // Update VR tracking (position and orientation) and camera
 RLAPI void CloseVrSimulator(void);                      // Close VR simulator for current device
 RLAPI bool IsVrSimulatorReady(void);                    // Detect if VR simulator is ready
 RLAPI void ToggleVrMode(void);                          // Enable/Disable VR experience

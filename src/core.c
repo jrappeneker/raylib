@@ -1274,7 +1274,7 @@ void EndTextureMode(void)
 }
 
 // Returns a ray trace from mouse position
-Ray GetMouseRay(Vector2 mousePosition, Camera camera)
+Ray GetMouseRay(Vector2 mousePosition, Camera3D camera)
 {
     Ray ray;
 
@@ -1329,7 +1329,7 @@ Ray GetMouseRay(Vector2 mousePosition, Camera camera)
 }
 
 // Returns the screen space position from a 3d world space position
-Vector2 GetWorldToScreen(Vector3 position, Camera camera)
+Vector2 GetWorldToScreen(Vector3 position, Camera3D camera)
 {
     // Calculate projection matrix (from perspective instead of frustum
     Matrix matProj = MatrixIdentity();
@@ -1371,7 +1371,7 @@ Vector2 GetWorldToScreen(Vector3 position, Camera camera)
 }
 
 // Get transform matrix for camera
-Matrix GetCameraMatrix(Camera camera)
+Matrix GetCameraMatrix(Camera3D camera)
 {
     return MatrixLookAt(camera.position, camera.target, camera.up);
 }

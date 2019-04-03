@@ -98,8 +98,8 @@ extern "C" {            // Prevents name mangling of functions
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
 #if defined(CAMERA_STANDALONE)
-void SetCameraMode(Camera camera, int mode);                // Set camera mode (multiple camera modes available)
-void UpdateCamera(Camera *camera);                          // Update camera position for selected mode
+void SetCameraMode(Camera3D camera, int mode);                // Set camera mode (multiple camera modes available)
+void UpdateCamera(Camera3D *camera);                          // Update camera position for selected mode
 
 void SetCameraPanControl(int panKey);                       // Set camera pan key to combine with mouse movement (free camera)
 void SetCameraAltControl(int altKey);                       // Set camera alt key to combine with mouse movement (free camera)
@@ -225,7 +225,7 @@ static Vector2 GetMousePosition() { return (Vector2){ 0.0f, 0.0f }; }
 //----------------------------------------------------------------------------------
 
 // Select camera mode (multiple camera modes available)
-void SetCameraMode(Camera camera, int mode)
+void SetCameraMode(Camera3D camera, int mode)
 {
     // TODO: cameraTargetDistance and cameraAngle should be 
     // calculated using camera parameters on UpdateCamera()
@@ -267,7 +267,7 @@ void SetCameraMode(Camera camera, int mode)
 //       Mouse: IsMouseButtonDown(), GetMousePosition(), GetMouseWheelMove()
 //       Keys:  IsKeyDown()
 // TODO: Port to quaternion-based camera
-void UpdateCamera(Camera *camera)
+void UpdateCamera(Camera3D *camera)
 {
     static int swingCounter = 0;    // Used for 1st person swinging movement
     static Vector2 previousMousePosition = { 0.0f, 0.0f };

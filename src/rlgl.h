@@ -534,7 +534,7 @@ void EndBlendMode(void);                          // End blending mode (reset to
 // VR control functions
 VrDeviceInfo GetVrDeviceInfo(int vrDeviceType);   // Get VR device information for some standard devices
 void InitVrSimulator(VrDeviceInfo info);          // Init VR simulator for selected device parameters
-void UpdateVrTracking(Camera *camera);            // Update VR tracking (position and orientation) and camera
+void UpdateVrTracking(Camera3D *camera);            // Update VR tracking (position and orientation) and camera
 void CloseVrSimulator(void);                      // Close VR simulator for current device
 bool IsVrSimulatorReady(void);                    // Detect if VR simulator is ready
 void ToggleVrMode(void);                          // Enable/Disable VR experience
@@ -3581,7 +3581,7 @@ void InitVrSimulator(VrDeviceInfo info)
 
 // Update VR tracking (position and orientation) and camera
 // NOTE: Camera (position, target, up) gets update with head tracking information
-void UpdateVrTracking(Camera *camera)
+void UpdateVrTracking(Camera3D *camera)
 {
     // TODO: Simulate 1st person camera system
 }
