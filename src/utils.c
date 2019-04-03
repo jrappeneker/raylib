@@ -53,7 +53,7 @@
 //----------------------------------------------------------------------------------
 
 // Log types messages
-static int logTypeLevel = LOG_INFO;
+static int logTypeLevel = LOG_WARNING;
 static int logTypeExit = LOG_ERROR;
 static TraceLogCallback logCallback = NULL;
 
